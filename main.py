@@ -16,7 +16,7 @@ def parse_log_line(line: str):
   
     if status_code > 599 or status_code < 100:
         return None
-
+ 
     if latency < 0:
         return None
 
@@ -30,7 +30,7 @@ def parse_log_line(line: str):
     
 def get_top_k_endpoints(endpoint_errors: dict, k: int):
     heap = [(count, method, endpoint) for (method, endpoint), count in endpoint_errors.items()]
-    return heapq.heapify(heap)
+    return heapq.nlargest(k, heap)
 
 def analyze_logs(file_path: str):
     total_requests = 0
